@@ -1,0 +1,57 @@
+{% if user.is_authenticated %}
+  {% load i18n %}
+  {%load static%}
+  <html>
+  <head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "hello/css/base.css" %}"{%endblock%}>
+  </head>
+  <body style="text-align:center;">
+  <nav class="navbar navbar-expand-lg navbar-light"style="background-color: #00eeaa;"">
+    <a class="navbar-brand">SBS</a>
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" href="/hello">Home <span class="sr-only">(current)</span></a>
+        {%if not user.is_superuser%}
+          <a class="nav-item nav-link" href="/hello/request">Send Request</a>
+          {%endif%}
+        <a class="nav-item nav-link" href="/calendar">Calendar</a>
+        {% comment %} <a class="nav-item nav-link" href="#">Disabled</a> {% endcomment %}
+           <div id="user-tools">
+            {% block welcome-msg %}
+                {% trans 'Welcome,' %}
+                <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+            {% endblock %}
+            {% block userlinks %}
+                {% if site_url %}
+                    <a href="{{ site_url }}">{% trans 'View site' %}</a> /
+                {% endif %}
+                {% if user.is_active and user.is_staff %}
+                    {% url 'django-admindocs-docroot' as docsroot %}
+                    {% if docsroot %}
+                        <a href="{{ docsroot }}">{% trans 'Documentation' %}</a> /
+                    {% endif %}
+                {% endif %}
+                {% comment %} {% if user.has_usable_password %}
+                <a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a> /
+                {% endif %} {% endcomment %}
+                <a href="/logout">{% trans 'Log out' %}</a>
+            {% endblock %}
+            {% block nav-global %}{% endblock %}
+    </div> 
+  </div>
+</nav>
+<br>
+<br>
+<img src="{%static 'hello/Images/AU_symbol.jpg'%}" height="90" width="90"></img>
+<h1>Welcome To Ahmedabad University Slot Booking Management System</h1>
+<br>
+<img src="{%static 'hello/Images/Book_Site _Image.jpg'%}"></img>
+</body>
+</html>
+{%else%}
+  <h2><p>Please Login to see this page.</p></h2>
+{%endif%}

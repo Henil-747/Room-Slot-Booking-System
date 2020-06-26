@@ -1,0 +1,51 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">Ahmedabad University Room Slot Booking System</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+<html>
+   <body>
+      
+      <form name = "form"  
+         method = "POST" class =>{% csrf_token %}
+         <div style="background:#BB0000; max-width:600px; font-color:#HH000000;margin-left:5%;">
+         <center>
+         Login Page</center></div>
+         <div style = "max-width:600px;">
+            <center> 
+               <input type = "email" style = "margin-left:20%;" 
+                  placeholder = "Email Id" name = "Email_Id" />
+            </center>
+         </div>
+			
+         <br>
+         
+         <div style = "max-width:600px;">
+            <center>
+               <input type = "password" style = "margin-left:20%;" 
+                  placeholder = "Password" name = "password" />
+            </center>
+         </div>
+			
+         <br>
+         
+         <div style = "max-width:600px;">
+            <center> 
+            
+               <button style = "border:0px; background-color:#4285F4; margin-top:8%;
+                  height:35px; width:80%;margin-left:19%;" type = "submit" 
+                  value = "Login" >
+                  <strong>Login</strong>
+               </button>
+               
+            </center>
+         </div>
+         
+      </form>
+      
+   </body>
+</html>
